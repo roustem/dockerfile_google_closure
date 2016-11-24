@@ -1,13 +1,15 @@
-FROM java:latest
+FROM openjdk:9-jre
 MAINTAINER Roustem <roustem@agilebits.com>
 
 ADD https://dl.google.com/closure-compiler/compiler-latest.zip compiler-latest.zip
 RUN unzip compiler-latest.zip
-RUN mv compiler.jar closure-compiler.jar
+RUN mv closure-compiler*.jar closure-compiler.jar
+RUN rm compiler-latest.zip
 
+VOLUME ["/workdir"]
 
-RUN adduser -h /home/googleclosure -s /bin/bash -D googleclosure
-USER googleclosure
-WORKDIR /home/googleclosure
+COPY ./entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
+	
 
 
