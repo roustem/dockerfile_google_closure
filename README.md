@@ -12,7 +12,11 @@ make image
 
 Publishing image to Docker Hub:
 ```bash
+docker run -it --rm -v $PWD:/workdir roustem/google_closure --version
+docker tag roustem/google_closure roustem/google_closure:$VERSION
+
 docker login
+docker push roustem/google_closure:$VERSION
 ```
 
 Running closure compiler:
